@@ -44,6 +44,7 @@ class RecordSoundsViewController: UIViewController , AVAudioRecorderDelegate {
         
         try! audioRecorder = AVAudioRecorder(URL: filePath!, settings: [:])
         audioRecorder.meteringEnabled = true
+        audioRecorder.delegate = self
         audioRecorder.prepareToRecord()
         audioRecorder.record()
     }
@@ -64,7 +65,7 @@ class RecordSoundsViewController: UIViewController , AVAudioRecorderDelegate {
     }
     
     func audioRecorderDidFinishRecording(recorder: AVAudioRecorder, successfully flag: Bool) {
-        print("AVAudioRecorder finishes saving recording")
+        print("AVAudioRecorder finishes saving recording successfully \(flag)")
         if (flag) {
             print("Url: \(audioRecorder.url)")
             self.performSegueWithIdentifier("stopRecording", sender: audioRecorder.url)
